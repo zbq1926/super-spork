@@ -514,12 +514,12 @@ async function handleUDPOutBound(webSocket, VLResponseHeader, log) {
 }
 
 function getVLConfig(yourUUID, url) {
-    const wsPath = '/?ed=2560';
-    const encodedPath = encodeURIComponent(wsPath);
-    const addresses = Array.isArray(cfip) ? cfip : [cfip];
-    const header = atob(atob('ZG14bGMzTT0='));
-    const configs = addresses.map(addr => '${header}://${yourUUID}@${addr}:443?encryption=none&security=tls&sni=${url}&fp=chrome&type=ws&host=${url}&path=${encodedPath}#Workers-service`);
-    return configs.join('\n').replace(new RegExp(header, 'g'), '${header}');
+  const wsPath = '/?ed=2560';
+  const encodedPath = encodeURIComponent(wsPath);
+  const addresses = Array.isArray(cfip) ? cfip : [cfip];
+  const header = atob(atob('ZG14bGMzTT0='));
+  const configs = addresses.map(addr => `${header}://${yourUUID}@${addr}:443?encryption=none&security=tls&sni=${url}&fp=chrome&type=ws&host=${url}&path=${encodedPath}#Workers-service`);
+  return configs.join('\n').replace(new RegExp(header, 'g'), '${header}');
 }
 
 function getHomePage(request) {
