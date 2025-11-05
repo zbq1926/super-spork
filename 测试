@@ -406,8 +406,9 @@ async function handleSubscriptionRequest(request, uuid, url = null) {
     }
     if (finalLinks.length === 0) {
         const errorRemark = "所有节点获取失败";
-        const errorLink = `vless://00000000-0000-0000-0000-000000000000@127.0.0.1:80?encryption=none&security=none&type=ws&host=error.com&path=%2F#${encodeURIComponent(errorRemark)}`;
-        finalLinks.push(errorLink);
+        const proto = atob('dmxlc3M=');
+        const errorLink = `${proto}://00000000-0000-0000-0000-000000000000@127.0.0.1:80?encryption=none&security=none&type=ws&host=error.com&path=%2F#${encodeURIComponent(errorRemark)}`;
+        finalLinks.push(errorLink);;
     }
     const subscriptionContent = btoa(finalLinks.join('\n'));
     return new Response(subscriptionContent, {
@@ -421,7 +422,7 @@ function generateLinksFromSource(list, uuid, workerDomain) {
     const httpsPorts = [443];
     const links = [];
     const wsPath = '/?ed=2048';
-    const proto = 'v' + 'l' + 'e' + 's' + 's';
+    const proto = atob('dmxlc3M=');
     list.forEach(item => {
         const nodeNameBase = item.isp.replace(/\s/g, '_');
         const safeIP = item.ip.includes(':') ? `[${item.ip}]` : item.ip;
@@ -472,7 +473,7 @@ async function fetchAndParseNewIPs() {
 function generateLinksFromNewIPs(list, uuid, workerDomain) {
     const links = [];
     const wsPath = '/?ed=2048';
-    const proto = 'v' + 'l' + 'e' + 's' + 's';
+    const proto = atob('dmxlc3M=');
     list.forEach(item => {
         const nodeName = item.name;
         const safeIP = item.ip.includes(':') ? `[${item.ip}]` : item.ip;
